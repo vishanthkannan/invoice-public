@@ -1,0 +1,163 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+/* PAGE BACKGROUND */
+body {
+  margin: 0;
+  padding: 0;
+  background: #eef2f7;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* MAIN CONTAINER */
+.container {
+  max-width: 950px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 12px;
+
+  /* LOGO AS BACKGROUND */
+  background-color: #ffffff;
+  background-image: url("./assets/logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 380px;
+  background-blend-mode: lighten;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* HEADER */
+.header-ui {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.header-ui img {
+  width: 80px;
+  height: auto;
+}
+
+.header-ui h2 {
+  margin: 0;
+  font-size: 26px;
+  color: #1f2937;
+}
+
+/* INPUTS */
+input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+thead {
+  background: #2563eb;
+  color: white;
+}
+
+th {
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* BUTTONS */
+button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+/* ADD ROW */
+button:not(.pdf-btn) {
+  background: #10b981;
+  color: white;
+}
+
+button:not(.pdf-btn):hover {
+  background: #059669;
+}
+
+/* SUMMARY */
+.summary {
+  margin-top: 25px;
+  padding: 20px;
+  background: rgba(241, 245, 249, 0.9);
+  border-radius: 10px;
+  text-align: right;
+}
+
+.summary p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #334155;
+}
+
+.summary h3 {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #0f172a;
+}
+
+/* GST INPUT */
+.summary input {
+  width: 80px;
+  margin-left: 8px;
+  text-align: right;
+}
+
+/* PDF BUTTON */
+.pdf-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  padding: 12px 22px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.pdf-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 20px;
+    background-size: 250px;
+  }
+
+  .summary {
+    text-align: left;
+  }
+}

@@ -1,16 +1,106 @@
-# React + Vite
+# Invoice Generator Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and professional Invoice Generator built using React.js that allows users to create GST invoices and download them as PDF files. This project is suitable for small businesses, freelancers, and educational purposes.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Add project name and GST percentage  
+- Dynamic item rows (description, unit, rate, quantity)  
+- Automatic amount calculation  
+- GST calculation  
+- Total amount calculation  
+- Generate and download invoices as PDF  
+- Clean and professional invoice layout  
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Frontend: React.js  
+- PDF Generation: jsPDF, jspdf-autotable  
+- Styling: CSS  
+- Build Tool: Vite / React Scripts  
+
+---
+
+## Project Structure
+
+invoice-generator/
+│
+├── src/
+│   ├── assets/
+│   │   └── logo.png
+│   ├── App.jsx
+│   ├── App.css
+│   └── main.jsx
+│
+├── public/
+│
+├── package.json
+├── README.md
+└── index.html
+
+---
+
+## Installation and Setup
+
+### Step 1: Clone the repository
+git clone https://github.com/vishanthkannan/invoice-generator.git
+
+### Step 2: Navigate to the project directory
+cd invoice-generator
+
+### Step 3: Install dependencies
+npm install
+
+### Step 4: Start the development server
+npm run dev
+
+The application will be available at:
+http://localhost:5173
+
+---
+
+## Application Flow
+
+1. Enter the project name  
+2. Specify the GST percentage  
+3. Add invoice items:
+   - Description
+   - Unit
+   - Rate
+   - Quantity  
+4. The application automatically calculates:
+   - Item-wise amounts  
+   - Subtotal  
+   - GST amount  
+   - Grand total  
+5. Generate and download the invoice as a PDF file  
+
+---
+
+## Libraries Used
+
+- jsPDF – PDF generation  
+- jspdf-autotable – Table formatting in PDF  
+
+---
+
+## Use Cases
+
+- Small businesses  
+- Construction and service-based firms  
+- Freelancers  
+- Academic and learning projects  
+
+---
+
+## Future Enhancements
+
+- Customer and billing details  
+- Invoice number and date generation  
+- Multiple invoice templates  
+- Database integration  
+- Email invoice functionality  

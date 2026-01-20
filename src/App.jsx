@@ -166,7 +166,12 @@ function App() {
     doc.text(`GST (${gst}%) : Rs. ${gstAmount}`, 140, totalsY + 8);
     doc.text(`Grand Total : Rs. ${grandTotal}`, 140, totalsY + 16);
 
-    doc.save("Invoice_Demo.pdf");
+    const safeProjectName = project
+  ? project.toUpperCase().replace(/[^A-Z0-9]/g, "_")
+  : "Quatation";
+
+doc.save(`${safeProjectName}.pdf`);
+
   };
 
   /* ================= UI ================= */

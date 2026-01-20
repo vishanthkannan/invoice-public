@@ -7,6 +7,10 @@ import logo from "./assets/logo.png";
 function App() {
   const [project, setProject] = useState("");
   const [gst, setGst] = useState(18);
+  const [fileName, setFileName] = useState("");
+  const [projectNote, setProjectNote] = useState("");
+
+
 
   const [items, setItems] = useState([
     { desc: "", unit: "", rate: "", qty: "", amount: 0 },
@@ -25,6 +29,11 @@ function App() {
       ...items,
       { desc: "", unit: "", rate: "", qty: "", amount: 0 },
     ]);
+  };
+
+  const deleteRow = (index) => {
+    const newItems = items.filter((_, i) => i !== index);
+    setItems(newItems.length > 0 ? newItems : [{ desc: "", unit: "", rate: "", qty: "", amount: 0 }]);
   };
 
   const total = items.reduce((sum, i) => sum + i.amount, 0);
@@ -166,99 +175,188 @@ function App() {
     doc.text(`GST (${gst}%) : Rs. ${gstAmount}`, 140, totalsY + 8);
     doc.text(`Grand Total : Rs. ${grandTotal}`, 140, totalsY + 16);
 
-    const safeProjectName = project
-  ? project.toUpperCase().replace(/[^A-Z0-9]/g, "_")
-  : "Quatation";
+    // ================= PROJECT NOTE =================
+if (projectNote && projectNote.trim() !== "") {
+  const noteY = totalsY + 28;
 
-doc.save(`${safeProjectName}.pdf`);
+  doc.setFont("times", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(50, 50, 50);
+
+  doc.text("Project Note:", 14, noteY);
+
+  doc.setFont("times", "italic");
+  doc.text(
+    projectNote,
+    14,
+    noteY + 6,
+    { maxWidth: 180 }
+  );
+}
+
+    const safeFileName = fileName
+  ? fileName.toUpperCase().replace(/[^A-Z0-9]/g, "_")
+  : "INVOICE";
+
+doc.save(`${safeFileName}.pdf`);
 
   };
 
   /* ================= UI ================= */
   return (
     <div className="container">
+      {/* HEADER */}
       <div className="header-ui">
-        <img src={logo} alt="logo" />
+        <img src={logo} alt="Vish Creations Logo" />
         <h2>Invoice Generator</h2>
       </div>
 
-      <input
-        placeholder="Project Name"
-        value={project}
-        onChange={(e) => setProject(e.target.value)}
-      />
-
-      <table>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Unit</th>
-            <th>Rate</th>
-            <th>Qty</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, i) => (
-            <tr key={i}>
-              <td>
-                <input
-                  value={item.desc}
-                  onChange={(e) =>
-                    handleChange(i, "desc", e.target.value)
-                  }
-                />
-              </td>
-              <td>
-                <input
-                  value={item.unit}
-                  onChange={(e) =>
-                    handleChange(i, "unit", e.target.value)
-                  }
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  value={item.rate}
-                  onChange={(e) =>
-                    handleChange(i, "rate", e.target.value)
-                  }
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  value={item.qty}
-                  onChange={(e) =>
-                    handleChange(i, "qty", e.target.value)
-                  }
-                />
-              </td>
-              <td>{item.amount}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <button onClick={addRow}>+ Add Row</button>
-
-      <div className="summary">
-        <p>Total: Rs. {total}</p>
-        <p>
-          GST %
+      {/* FORM SECTION */}
+      <div className="form-section">
+        <div className="form-section-title">Invoice Details</div>
+        
+        <div className="form-group">
+          <h4>File Name</h4>
           <input
-            type="number"
-            value={gst}
-            onChange={(e) => setGst(e.target.value)}
+            type="text"
+            placeholder="e.g., Maintenance_work"
+            value={fileName}
+            onChange={(e) => setFileName(e.target.value)}
           />
-        </p>
-        <p>GST Amount: Rs. {gstAmount}</p>
-        <h3>Grand Total: Rs. {grandTotal}</h3>
+        </div>
 
-        <button className="pdf-btn" onClick={generatePDF}>
-          Generate Invoice PDF
-        </button>
+        <div className="form-group">
+          <h4>Project Name</h4>
+          <input
+            type="text"
+            placeholder="Enter project name"
+            value={project}
+            onChange={(e) => setProject(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <h4>Project Notes</h4>
+          <textarea
+            placeholder="Add any additional notes, terms, or special instructions for the invoice..."
+            value={projectNote}
+            onChange={(e) => setProjectNote(e.target.value)}
+          />
+        </div>
+      </div>
+
+      {/* ITEMS TABLE SECTION */}
+      <div className="items-section">
+        <div className="table-wrapper">
+          <div className="table-header">
+            <h3>Line Items</h3>
+          </div>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Rate</th>
+                <th>Qty</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item, i) => (
+                <tr key={i}>
+                  <td>
+                    <input
+                      type="text"
+                      value={item.desc}
+                      placeholder="Item description"
+                      onChange={(e) =>
+                        handleChange(i, "desc", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      value={item.unit}
+                      placeholder="Unit"
+                      onChange={(e) =>
+                        handleChange(i, "unit", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      value={item.rate}
+                      placeholder="0"
+                      onChange={(e) =>
+                        handleChange(i, "rate", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      value={item.qty}
+                      placeholder="0"
+                      onChange={(e) =>
+                        handleChange(i, "qty", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>₹ {item.amount.toFixed(2)}</td>
+                  <td>
+                    <button 
+                      className="delete-btn"
+                      onClick={() => deleteRow(i)}
+                      title="Delete this item"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="table-wrapper" style={{ paddingTop: 0 }}>
+          <button className="add-item-btn" onClick={addRow}>
+            Add New Item
+          </button>
+        </div>
+      </div>
+
+      {/* SUMMARY SECTION */}
+      <div className="summary">
+        <div className="summary-content">
+          <div className="summary-card">
+            <p>
+              <span>Subtotal:</span>
+              <span>₹ {total.toFixed(2)}</span>
+            </p>
+            <p>
+              <span>GST Rate (%)</span>
+              <input
+                type="number"
+                value={gst}
+                onChange={(e) => setGst(e.target.value)}
+              />
+            </p>
+            <p>
+              <span>GST Amount:</span>
+              <span>₹ {gstAmount.toFixed(2)}</span>
+            </p>
+          </div>
+
+          <h3>Grand Total: ₹ {grandTotal.toFixed(2)}</h3>
+
+          <button className="pdf-btn" onClick={generatePDF}>
+            Download Invoice PDF
+          </button>
+        </div>
       </div>
     </div>
   );
